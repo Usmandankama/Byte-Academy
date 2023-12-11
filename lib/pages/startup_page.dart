@@ -1,6 +1,6 @@
-import 'package:crystalacademy/pages/login.dart';
+import 'package:byteacademy/pages/login.dart';
 import 'package:flutter/material.dart';
-import 'package:crystalacademy/constants/colors.dart' as color;
+import 'package:byteacademy/constants/colors.dart' as color;
 
 class StartupPage extends StatefulWidget {
   const StartupPage({super.key});
