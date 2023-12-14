@@ -1,4 +1,4 @@
-import 'package:byteacademy/pages/login.dart';
+import 'package:byteacademy/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:byteacademy/constants/colors.dart' as color;
 
@@ -29,7 +29,7 @@ class _StartupPageState extends State<StartupPage> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const Login(),
+                      builder: (context) => const AuthPage(),
                     ),
                   );
                 },

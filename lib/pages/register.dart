@@ -1,4 +1,4 @@
-import 'package:byteacademy/pages/home_page.dart';
+// ignore_for_file: use_build_context_synchronously
 import 'package:byteacademy/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,7 @@ class _RegisterState extends State<Register> {
               email: emailController.text, password: passwordController.text);
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePage()),
+        MaterialPageRoute(builder: (context) => const Login()),
       );
     } on FirebaseAuthException catch (e) {
       displayMessageToUser(e.code, context);
@@ -159,7 +159,7 @@ class _RegisterState extends State<Register> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
-                        controller: passwordController,
+                        controller: confirmPwController,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
                             hintText: 'confirm password',

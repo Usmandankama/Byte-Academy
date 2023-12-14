@@ -1,5 +1,8 @@
-import 'package:byteacademy/pages/home_page.dart';
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:byteacademy/helper/errorMessage.dart';
 import 'package:byteacademy/pages/register.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../constants/colors.dart' as colors;
 
@@ -10,18 +13,31 @@ class Login extends StatefulWidget {
   State<Login> createState() => _LoginState();
 }
 
-final TextEditingController usernameController = TextEditingController();
+final TextEditingController emailController = TextEditingController();
 final TextEditingController passwordController = TextEditingController();
 
-void login() {
-  // show loading cycle
-
-  // make sure passwords match
-
-  // try to log user in
-}
-
 class _LoginState extends State<Login> {
+  void login() async {
+    // show loading cycle
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    // try to log user in
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      if (context.mounted) Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Navigator.pop(context);
+      displayMessageToUser(e.code, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +86,10 @@ class _LoginState extends State<Login> {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: TextField(
-                        controller: usernameController,
+                        controller: emailController,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Username',
+                            hintText: 'email',
                             prefixIcon: Icon(Icons.person)),
                       ),
                     ),
@@ -94,7 +110,7 @@ class _LoginState extends State<Login> {
                         controller: passwordController,
                         decoration: const InputDecoration(
                             border: InputBorder.none,
-                            hintText: 'Password',
+                            hintText: 'password',
                             prefixIcon: Icon(Icons.lock)),
                         obscureText: true,
                       ),

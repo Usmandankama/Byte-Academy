@@ -1,3 +1,6 @@
+import 'package:byteacademy/pages/profile_page.dart';
+import 'package:byteacademy/widgets/courses_tile.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:byteacademy/constants/colors.dart' as colors;
 
@@ -12,7 +15,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 6, vsync: this);
   }
 
   @override
@@ -25,30 +28,42 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // leading: Icon(Icons.menu_rounded),
+        toolbarHeight: 70,
+        scrolledUnderElevation: 2,
         title: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                border: Border.all(color: colors.secondaryColor),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.asset(
-                  './assets/images/avatar.jpg',
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ProfilePage(),
+                  ),
+                );
+              },
+              child: Container(
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  border:
+                      Border.all(color: colors.secondaryColor, strokeAlign: .5),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(50),
+                  child: Image.asset(
+                    './assets/images/avatar.jpg',
+                    fit: BoxFit.cover,
+                    alignment: Alignment.center,
+                  ),
                 ),
               ),
             ),
             IconButton(
-              icon: const Icon(Icons.notifications),
               onPressed: () {},
+              icon: const Icon(Icons.notifications),
             ),
           ],
         ),
@@ -141,20 +156,43 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           Align(
             alignment: Alignment.centerLeft,
             child: TabBar(
+              indicator: BoxDecoration(
+                color: Colors.black,
+                borderRadius: BorderRadius.circular(50),
+                border: Border.all(
+                    color: colors.primaryColor,
+                    width: 2,
+                    style: BorderStyle.solid,
+                    strokeAlign: 1),
+              ),
+              splashBorderRadius: BorderRadius.circular(50),
               isScrollable: true,
-              labelColor: colors.primaryfontColor,
-              unselectedLabelColor: colors.secondaryfontColor,
+              padding: const EdgeInsets.all(10),
+              labelColor: Colors.white,
+              unselectedLabelColor: Colors.black54,
               controller: _tabController,
-              labelPadding: const EdgeInsets.symmetric(horizontal:20),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelPadding: const EdgeInsets.symmetric(horizontal: 30),
+              unselectedLabelStyle: const TextStyle(color: Colors.black45),
+              dividerColor: Colors.transparent,
               tabs: const [
                 Tab(
-                  text: "Hello",
+                  text: 'HTML',
                 ),
                 Tab(
-                  text: "Hello",
+                  text: 'PYTHON',
                 ),
                 Tab(
-                  text: "Hello",
+                  text: 'JAVA',
+                ),
+                Tab(
+                  text: 'XML',
+                ),
+                Tab(
+                  text: 'SQL',
+                ),
+                Tab(
+                  text: 'CSS',
                 ),
               ],
             ),
@@ -165,6 +203,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             child: TabBarView(
               controller: _tabController,
               children: const [
+                CoursesTile(),
+                Text('data'),
+                Text('data'),
                 Text('data'),
                 Text('data'),
                 Text('data'),
@@ -173,6 +214,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         ],
       ),
+      bottomNavigationBar: BottomNavigationBar(items: const [
+        BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+            icon: Icon(Icons.home_rounded), label: 'Courses'),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+      ]),
     );
+  }
+
+  void logout() {
+    FirebaseAuth.instance.signOut();
   }
 }
