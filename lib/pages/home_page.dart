@@ -176,30 +176,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               unselectedLabelStyle: const TextStyle(color: Colors.black45),
               dividerColor: Colors.transparent,
               tabs: const [
-                Tab(
-                  text: 'HTML',
-                ),
-                Tab(
-                  text: 'PYTHON',
-                ),
-                Tab(
-                  text: 'JAVA',
-                ),
-                Tab(
-                  text: 'XML',
-                ),
-                Tab(
-                  text: 'SQL',
-                ),
-                Tab(
-                  text: 'CSS',
-                ),
+                Tab(text: 'HTML'),
+                Tab(text: 'PYTHON'),
+                Tab(text: 'JAVA'),
+                Tab(text: 'XML'),
+                Tab(text: 'SQL'),
+                Tab(text: 'CSS'),
               ],
             ),
           ),
           SizedBox(
             width: double.maxFinite,
-            height: 300,
+            height: 350,
             child: TabBarView(
               controller: _tabController,
               children: const [
@@ -212,6 +200,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               ],
             ),
           ),
+        //TODO: implement other sections
+          const Text('Your Courses'),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(items: const [

@@ -6,12 +6,12 @@ class CoursesTile extends StatefulWidget {
   @override
   State<CoursesTile> createState() => _CoursesTileState();
 }
-
+//TODO: make the padding parent a widget to have different info from a database
 class _CoursesTileState extends State<CoursesTile> {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         gridDelegate:
             const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemCount: 4,
@@ -23,7 +23,7 @@ class _CoursesTileState extends State<CoursesTile> {
               height: 200,
               width: 250,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 188, 255, 200),
+                color: const Color.fromRGBO(215, 255, 223, 1),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: const Column(
@@ -36,11 +36,19 @@ class _CoursesTileState extends State<CoursesTile> {
                   SizedBox(
                     height: 5,
                   ),
-                  Row(children: [Icon(Icons.access_time), Text('duration')]),
+                  Row(children: [
+                    Icon(Icons.access_time),
+                    SizedBox(width: 5),
+                    Text('duration')
+                  ]),
                   SizedBox(
                     height: 5,
                   ),
-                  Row(children: [Icon(Icons.class_rounded), Text('10 lesson')]),
+                  Row(children: [
+                    Icon(Icons.class_rounded),
+                    SizedBox(width: 5),
+                    Text('10 lesson')
+                  ]),
                 ],
               ),
             ),
